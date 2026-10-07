@@ -4,7 +4,7 @@
 using namespace std;
 
 /* ======= LAB LEARNING =======*/
-
+// This lab covers the basic concepts of pointers
 //  int sumArray(int size, int *ptr){
 //     double sum = 0;
 //     for(int i=0; i<size; i++){
