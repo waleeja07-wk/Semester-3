@@ -288,6 +288,7 @@ using namespace std;
 //     newArray = arr;
 // }
 
+/*SECTION 2*/
 /* SEARCH INSERT POSITION */
 
 // int insertPos(int nums[], int size, int target){
@@ -335,20 +336,20 @@ int *plusOne(int digits[], int size)
     else if (digits[size - 1] == 9)
     {
         size++;
-        int i=size-1;
-        do{
-            digits[i]=0;
+        int i = size - 1;
+        do
+        {
+            digits[i] = 0;
             i--;
-        }while(digits[i]==9);
+        } while (digits[i] == 9);
 
-        
-        digits[i]+=1;
+        digits[i] += 1;
     }
     return digits;
 }
 int main()
 {
-    int size = 3;
+    int size = 2;
     int digits[size] = {9};
     plusOne(digits, size);
 

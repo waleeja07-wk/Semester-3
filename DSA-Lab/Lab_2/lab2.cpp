@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 /* TASK 1 */
@@ -34,7 +35,7 @@ using namespace std;
 //             count++;
 //         }
 //     }
-    
+
 //     n = count;
 
 //     cout<<"Leaders of the array: ";
@@ -45,7 +46,6 @@ using namespace std;
 //     delete [] arr;
 //     delete [] leaders;
 // }
-
 
 /* TASK 2 */
 /* DYNAMIC MEMORY CALCULATOR */
@@ -60,7 +60,6 @@ using namespace std;
 //     for(int i=0; i<n; i++){
 //         cin>> *(arr1+i);
 //     }
-
 
 //     int *arr2 = new int [n];
 //     cout<<"ENTER ELEMETS OF ARRAY 2: "<<endl;
@@ -109,8 +108,8 @@ using namespace std;
 
 // }
 
-
 /* TASK 3 */
+/* Two Sum */
 // int* findIndices(int* nums, int target, int size)
 // {
 //     int *result = new int [2];
@@ -154,7 +153,6 @@ using namespace std;
 
 // }
 
-
 /* TASK 4 */
 /* Find the Single Non-Repeating Element */
 
@@ -171,4 +169,57 @@ using namespace std;
 
 // }
 
+/* Task 5 */
+/* Roman to integer */
 
+int romToInt(string s)
+{
+    int integer = 0;
+    for (int i = 0; i < s.size(); i++)
+    {
+        switch (s[i])
+        {
+        case 'I':
+            integer += 1;
+            break;
+        case 'V':
+            integer += 5;
+            if (i > 0 && s[i - 1] == 'I')
+                integer -= 2;
+            break;
+        case 'X':
+            integer += 10;
+            if (i > 0 && s[i - 1] == 'I')
+                integer -= 2;
+            break;
+        case 'L':
+            integer += 50;
+            if (i > 0 && s[i - 1] == 'X')
+                integer -= 20;
+            break;
+        case 'C':
+            integer += 100;
+            if (i > 0 && s[i - 1] == 'X')
+                integer -= 20;
+            break;
+        case 'D':
+            integer += 500;
+            if (i > 0 && s[i - 1] == 'C')
+                integer -= 200;
+            break;
+        case 'M':
+            integer += 1000;
+            if (i > 0 && s[i - 1] == 'C')
+                integer -= 200;
+            break;
+        }
+    }
+    return integer;
+}
+
+int main()
+{
+    string roman;
+    cin >> roman;
+    cout << romToInt(roman) << endl;
+}

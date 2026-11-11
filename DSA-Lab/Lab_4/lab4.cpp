@@ -1,9 +1,12 @@
 #include <iostream>
 using namespace std;
+
+/* SECTION 1 */
+
 class LinkedList
 {
 private:
-// Node represents one element of the linked list
+    // Node represents one element of the linked list
     struct Node
     {
         char data;
@@ -14,8 +17,11 @@ private:
     Node *tail;
     int size; // Stores the number of elements
     bool isEmpty() { return (head == nullptr); }
-    bool isValidIndex(int index) { return (index >= 0 && index < size);
-}
+    bool isValidIndex(int index)
+    {
+        return (index >= 0 && index < size);
+    }
+
 public:
     LinkedList();
     LinkedList(char value);
@@ -29,28 +35,28 @@ public:
     void replaceHead();
     void clear();
     void removeDuplicates();
+    void reverse();
     void display();
-    friend void mergeLL(LinkedList l1, LinkedList L);
+    friend Node* mergeLL(Node *l1, Node *l2);
 };
 
-void mergeLL(LinkedList ll1, LinkedList ll2){
-    
-    Node *curr = ll1->head;
-    for(int i=0; i<ll1.getSize(); i++){
-       
-    }
-}
 int main()
 {
     LinkedList list1;
-    list1.add(1);
-    list1.add(3);
-    list1.add(5);
+    list1.add('3');
+    list1.add('1');
+    list1.add('5');
+    list1.add('3');
+    list1.add('5');
+    list1.add('5');
+    list1.display();
+    list1.removeDuplicates();
+    list1.display();
 
-    LinkedList list2;
-    list2.add(2);
-    list2.add(4);
-    list2.add(6);
+    // LinkedList list2;
+    // list2.add(2);
+    // list2.add(4);
+    // list2.add(6);
 
     // cout<<list.get(list.getSize()-1)<<endl;
     // list.display();
@@ -67,6 +73,11 @@ int main()
     // list.clear();
     // list.display();
 }
+
+// void mergeLL(LinkedList l1, LinkedList l2){
+    
+// }
+
 // Default Constructor
 LinkedList::LinkedList()
 {
@@ -84,12 +95,12 @@ LinkedList::LinkedList(char value)
 // Destructor
 LinkedList::~LinkedList()
 {
-// Delete each node one by one
+    // Delete each node one by one
     while (head)
     {
         Node *curr = head; // Save the current node
         head = head->next; // Move to the next node before deleting
-        
+
         delete curr;
     }
     tail = head;
@@ -115,6 +126,22 @@ void LinkedList::add(char value)
         tail = newNode;
     }
     size++;
+}
+
+void LinkedList::reverse(){
+    Node *curr = head;
+    Node *prev = head;
+    while(prev->next != tail){
+        prev = prev->next; 
+    }
+
+    for(int i=0; i<size; i++){
+        tail -> next = head;
+        head = tail;
+        tail = prev;
+    }
+
+
 }
 // Insert element at a specific index
 void LinkedList::insert(int index, char value)
@@ -144,8 +171,9 @@ void LinkedList::insert(int index, char value)
         newNode->next = curr->next;
         curr->next = newNode;
     }
-    if(newNode->next == nullptr){
-            tail = newNode;
+    if (newNode->next == nullptr)
+    {
+        tail = newNode;
     }
     size++;
 }
@@ -165,13 +193,15 @@ void LinkedList::remove(int index)
     if (index == 0)
     {
         Node *removalNode = head;
-        if(index==size-1){
+        if (index == size - 1)
+        {
             removalNode->next = nullptr;
         }
-        else{
+        else
+        {
             head = head->next; // Move head to the second node
         }
-        
+
         delete removalNode; // Delete the old first node
     }
     else
@@ -184,10 +214,11 @@ void LinkedList::remove(int index)
         }
         Node *removalNode = curr->next;
         curr->next = removalNode->next; // Skip the node being removed
-        delete removalNode; // Delete the removed node
+        delete removalNode;             // Delete the removed node
     }
     size--;
 }
+
 // Get element at an index
 char LinkedList::get(int index)
 {
@@ -201,7 +232,8 @@ char LinkedList::get(int index)
         cout << "Invalid index." << endl;
         return -1;
     }
-    if(index==size-1){
+    if (index == size - 1)
+    {
         return tail->data;
     }
     Node *curr = head;
@@ -239,7 +271,8 @@ int LinkedList::getSize()
     return size;
 }
 
-void LinkedList::replaceHead(){
+void LinkedList::replaceHead()
+{
     if (isEmpty())
     {
         cout << "List is empty." << endl;
@@ -247,9 +280,10 @@ void LinkedList::replaceHead(){
     }
 
     Node *curr = head;
-    Node *temp =  tail;
+    Node *temp = tail;
 
-    for(int i=1; i<size-1; i++){
+    for (int i = 1; i < size - 1; i++)
+    {
         curr = curr->next;
     }
 
@@ -259,21 +293,37 @@ void LinkedList::replaceHead(){
     tail = curr;
 }
 
-// void LinkedList::removeDuplicates(){
-//     if(isEmpty()){
-//         return;
-//     }
+void LinkedList::removeDuplicates()
+{
+    if (isEmpty())
+    {
+        return;
+    }
 
-//     Node *curr  = head;
-//     while(curr->next){
-//         if()
-//     }
-// }
+    if (getSize() == 1)
+    {
+        return;
+    }
+    for (int i = 0; i < getSize(); i++)
+    {
+        for (int j = i + 1; j < getSize(); j++)
+        {
+            if (get(i) == get(j))
+            {
+                remove(i);
+            }
+        }
+    }
+}
 
-// void LinkedList::clear(){
-   
-
-// }
+void LinkedList::clear()
+{
+    Node *curr = head;
+    while (head)
+    {
+        remove(0);
+    }
+}
 // Display the list
 void LinkedList::display()
 {
