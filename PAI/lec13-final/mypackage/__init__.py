@@ -1,0 +1,1 @@
+print("math_utils is loaded from mypackage folder (or package).")

@@ -1,0 +1,5 @@
+Welcome to Python File Handling!
+This is line 2 of data.txt.
+Python makes reading files easy.
+Files can be opened in read, write, append, and create modes.
+Always close your files, or use the 'with' statement.
