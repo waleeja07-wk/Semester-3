@@ -13,15 +13,25 @@ private:
 public:
     Queue(int s)
     {
-        int *arr = new int[s];
+        arr = new int[s];
         size = s;
         front = 0;
         rear = -1;
         noOfElements = 0;
     }
 
-    void enque(int v)
+    ~Queue()
     {
+        delete[] arr;
+    }
+
+    bool isEmpty() { return noOfElements == 0; }
+    bool isFull() { return noOfElements == size; }
+
+    void enqueue(int v)
+    {
+        if (isFull())
+            throw std::runtime_error("Queue is full");
         if (rear == (size - 1))
         {
             rear = 0;
@@ -35,8 +45,10 @@ public:
         noOfElements++;
     }
 
-    int deque()
+    int dequeue()
     {
+        if (isEmpty())
+            throw std::runtime_error("Queue is empty");
         int val = arr[front];
         if (front == (size - 1))
         {
@@ -49,15 +61,23 @@ public:
         noOfElements--;
         return val;
     }
+
+    int peek()
+    {
+        if (isEmpty())
+            throw runtime_error("Queue is empty!");
+        return arr[front];
+    }
 };
 
 int main()
 {
     Queue q(3);
-    q.enque(3);
-    q.enque(8);
-    q.enque(4);
-    cout << q.deque();
-    cout << q.deque();
-    cout << q.deque();
+    q.enqueue(3);
+    q.enqueue(8);
+    q.enqueue(9);
+    q.enqueue(3);
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
 }

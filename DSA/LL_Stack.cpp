@@ -33,6 +33,11 @@ public:
         }
     }
 
+    bool isEmpty() const
+    {
+        return top == nullptr;
+    }
+
     void push(int val)
     {
         Node *n = new Node(val);
@@ -42,13 +47,26 @@ public:
 
     int pop()
     {
-        int x = top->val;
+        if (isEmpty())
+        {
+            cout << "Stack is empty!" << endl;
+            return;
+        }
+
+        Node *temp = top; // we use this temp to delete the node permenantly, to avoid memory leaks
+        int x = temp->val;
         top = top->next;
+        delete temp;
         return x;
     }
 
     int Top()
     {
+        if (isEmpty())
+        {
+            cout << "Stack is empty!" << endl;
+            return;
+        }
         return top->val;
     }
 };

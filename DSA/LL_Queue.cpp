@@ -19,59 +19,62 @@ class Queue
 private:
     Node *front;
     Node *rear;
-    int size;
     int noOfElements;
 
 public:
-    Queue(int s)
+    Queue()
     {
-
-        size = s;
         front = nullptr;
         rear = nullptr;
         noOfElements = 0;
     }
 
-    void enque(int v)
+    bool isEmpty()
+    {
+        return noOfElements == 0;
+    }
+
+    void enqueue(int v)
     {
         Node *n = new Node(v);
-        if (rear->next == nullptr)
+        if (isEmpty())
         {
-            rear = 0;
+            front = rear = n;
         }
         else
         {
-            rear++;
+            rear->next = n;
+            rear = n;
         }
 
-        n->next = rear;
-        rear = n;
         noOfElements++;
     }
 
-    int deque()
+    int dequeue()
     {
-        int val = front->val;
-        if (front->next == nullptr)
-        {
-            front = 0;
-        }
-        else
-        {
-            front++;
-        }
+        Node *temp = front;
+        int val = temp->val;
+        front = front->next;
+        if (front == nullptr)
+            rear == nullptr;
+        delete temp;
         noOfElements--;
         return val;
+    }
+
+    int peek()
+    {
+        return front->val;
     }
 };
 
 int main()
 {
-    Queue q(3);
-    q.enque(3);
-    q.enque(8);
-    q.enque(4);
-    cout << q.deque();
-    cout << q.deque();
-    cout << q.deque();
+    Queue q;
+    q.enqueue(3);
+    q.enqueue(8);
+    q.enqueue(4);
+    cout << q.dequeue();
+    cout << q.dequeue();
+    cout << q.dequeue();
 }
